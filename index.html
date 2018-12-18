@@ -44,7 +44,7 @@
             speechRecognitionList.addFromString(grammar, 1);
             recognition.grammars = speechRecognitionList;
             recognition.lang = 'ja-JP';
-            recognition.interimResults = false;
+            recognition.interimResults = true;
             recognition.maxAlternatives = 1;
 
             recognition.start();
@@ -97,12 +97,11 @@
             recognition.onend = function(event) {
                 //Fired when the speech recognition service has disconnected.
                 console.log('SpeechRecognition.onend');
-                try{
+                /*try{
                     recognition.start();
                 }catch(e){
-                /* already started の場合は無視 */
                     console.log(e);
-                }
+                }*/
             }
             
             recognition.onnomatch = function(event) {
