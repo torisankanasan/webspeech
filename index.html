@@ -67,6 +67,12 @@
                 recognition.stop();
                 testBtn.disabled = false;
                 testBtn.textContent = 'Start new test';
+                setTimeout(()=>{
+                    if(recognition){
+                        return;
+                    }
+                    recognition.start();
+                },500);
             }
 
             recognition.onerror = function(event) {
