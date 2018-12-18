@@ -1,4 +1,4 @@
-<html>
+<html lang="ja">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -43,21 +43,13 @@
             var speechRecognitionList = new SpeechGrammarList();
             speechRecognitionList.addFromString(grammar, 1);
             recognition.grammars = speechRecognitionList;
-            recognition.lang = 'en-US';
+            recognition.lang = 'ja';
             recognition.interimResults = false;
             recognition.maxAlternatives = 1;
 
             recognition.start();
 
             recognition.onresult = function(event) {
-                // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
-                // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
-                // It has a getter so it can be accessed like an array
-                // The first [0] returns the SpeechRecognitionResult at position 0.
-                // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
-                // These also have getters so they can be accessed like arrays.
-                // The second [0] returns the SpeechRecognitionAlternative at position 0.
-                // We then return the transcript property of the SpeechRecognitionAlternative object 
                 var speechResult = event.results[0][0].transcript.toLowerCase();
                 diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
                 if(speechResult === phrase) {
