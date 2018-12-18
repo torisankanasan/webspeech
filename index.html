@@ -13,6 +13,29 @@
         </div>
     </nav>
     <a class="waves-effect waves-light btn-large">はじめる</a>
+    <h3>来年は西暦何年？</h3>
+    <div class="row">
+        <div class="col s4">
+            <div class="card">
+                <div class="card-content">
+                    <p>2018年</p>
+                </div>
+                <div class="card-action" style="text-align: center;">
+                    <a href="#">1</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s4">
+            <div class="card">
+                <div class="card-content">
+                    <p>2019年</p>
+                </div>
+                <div class="card-action" style="text-align: center;">
+                    <a href="#">2</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div>
         <p class="phrase">Phrase...</p>
         <p class="result">Right or wrong?</p>
@@ -59,7 +82,8 @@
             recognition.onresult = function(event) {
                 var speechResult = event.results[0][0].transcript.toLowerCase();
                 diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
-                if(speechResult === phrase) {
+                //if(speechResult === phrase) {
+                if(speechResult === '2') {
                 resultPara.textContent = 'I heard the correct phrase!';
                 resultPara.style.background = 'lime';
                 } else {
