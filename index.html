@@ -16,7 +16,7 @@
         var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
         var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-        var phrases = [ '1', '2', '3' ];
+        var phrases = [ '1', '2', '3', '4', '5', 'a', 'b', 'c', '戻る', '次' ,'スタート' ];
         var phrasePara = document.querySelector('.phrase');
         var resultPara = document.querySelector('.result');
         var diagnosticPara = document.querySelector('.output');
@@ -43,7 +43,7 @@
             var speechRecognitionList = new SpeechGrammarList();
             speechRecognitionList.addFromString(grammar, 1);
             recognition.grammars = speechRecognitionList;
-            recognition.lang = 'ja';
+            recognition.lang = 'ja-JP';
             recognition.interimResults = false;
             recognition.maxAlternatives = 1;
 
