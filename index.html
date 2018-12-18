@@ -75,7 +75,12 @@
                 diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
                 if (event.error === 'no-speech') {
                     // 無音状態で一定時間が経過した、ということなので再度音声認識をスタート
-                    recognition.start();
+                    try{
+                        recognition.start();
+                    }catch(e){
+                    /* already started の場合は無視 */
+                        console.log(e);
+                    }
                 }
             }
             
