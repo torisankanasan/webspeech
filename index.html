@@ -73,6 +73,10 @@
                 testBtn.disabled = false;
                 testBtn.textContent = 'Start new test';
                 diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
+                if (event.error === 'no-speech') {
+                    // 無音状態で一定時間が経過した、ということなので再度音声認識をスタート
+                    recognition.start();
+                }
             }
             
             recognition.onaudiostart = function(event) {
