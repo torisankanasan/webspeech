@@ -15,14 +15,14 @@
     <div class="row" style="text-align: center;margin-top: 3vh;">
         <a class="waves-effect waves-light btn-large">はじめる</a>
     </div>
+    <div class="row" style="text-align: center;margin-top: 3vh;">
+        <h5>来年は西暦何年でしょう？（選択肢からお答えください。）</h5>
+    </div>
     <div class="row">
         <div class="col s3">
             <div class="card" id="q1">
                 <div class="card-content">
                     <p>2017年</p>
-                </div>
-                <div class="card-action" style="text-align: center;">
-                    <a href="#">1</a>
                 </div>
             </div>
         </div>
@@ -31,18 +31,12 @@
                 <div class="card-content">
                     <p>2018年</p>
                 </div>
-                <div class="card-action" style="text-align: center;">
-                    <a href="#">2</a>
-                </div>
             </div>
         </div>
         <div class="col s3">
             <div class="card" id="q3">
                 <div class="card-content">
                     <p>2019年</p>
-                </div>
-                <div class="card-action" style="text-align: center;">
-                    <a href="#">3</a>
                 </div>
             </div>
         </div>
@@ -51,15 +45,12 @@
                 <div class="card-content">
                     <p>2020年</p>
                 </div>
-                <div class="card-action" style="text-align: center;">
-                    <a href="#">4</a>
-                </div>
             </div>
         </div>
     </div>
     <div>
         <!--<p class="phrase">Phrase...</p>-->
-        <p>正解：3</p>
+        <p>正解：2019年</p>
         <p class="result">Right or wrong?</p>
         <p class="output">...diagnostic messages</p>
     </div>
@@ -68,10 +59,12 @@
         var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
         var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-        var phrases = [ '1', '2', '3', '4', '5', 'a', 'b', 'c', '戻る', '次' ,'スタート' ];
+        var phrases = [ '2017年', '2018年', '2019年', '2020年' ];
         //var phrasePara = document.querySelector('.phrase');
         var resultPara = document.querySelector('.result');
         var diagnosticPara = document.querySelector('.output');
+
+        var endFlag = true;
 
         function randomPhrase() {
             var number = Math.floor(Math.random() * phrases.length);
@@ -79,8 +72,11 @@
         }
 
         function testSpeech() {
-            testBtn.disabled = true;
-            testBtn.textContent = '聞き取り中';
+            endFlag = !endFlag;
+            testBtn.textContent = 'はじめる';
+            if (!endFlag) {
+                testBtn.disabled = true;
+                testBtn.textContent = '終了';
 
             var phrase = phrases[randomPhrase()];
             // To ensure case consistency while checking with the returned output text
@@ -110,16 +106,16 @@
                 document.querySelector('#q3').style.border = '';
                 document.querySelector('#q4').style.border = '';
                 document.querySelector('#q3').style.background = '';
-                if(speechResult === '1') {
+                if(speechResult === '2017年') {
                     document.querySelector('#q1').style.border = '3px solid blue';
-                } else if(speechResult === '2') {
+                } else if(speechResult === '2018年') {
                     document.querySelector('#q2').style.border = '3px solid blue';
-                } else if(speechResult === '3') {
+                } else if(speechResult === '2019年') {
                     document.querySelector('#q3').style.border = '3px solid blue';
-                } else if(speechResult === '4') {
+                } else if(speechResult === '2020年') {
                     document.querySelector('#q4').style.border = '3px solid blue';
                 }
-                if(speechResult === '3') {
+                if(speechResult === '2019年') {
                     resultPara.textContent = '正解';
                     resultPara.style.background = 'lime';
                     document.querySelector('#q3').style.background = '#ACCBFD';
@@ -165,10 +161,12 @@
             recognition.onend = function(event) {
                 //Fired when the speech recognition service has disconnected.
                 console.log('SpeechRecognition.onend');
-                try{
-                    recognition.start();
-                }catch(e){
-                    console.log(e);
+                if (!endFlag) {
+                    try{
+                        recognition.start();
+                    }catch(e){
+                        console.log(e);
+                    }
                 }
             }
             
@@ -194,6 +192,7 @@
             recognition.onstart = function(event) {
                 //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
                 console.log('SpeechRecognition.onstart');
+            }
             }
         }
 
