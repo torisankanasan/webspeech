@@ -67,12 +67,6 @@
                 recognition.stop();
                 testBtn.disabled = false;
                 testBtn.textContent = 'Start new test';
-                setTimeout(()=>{
-                    if(recognition){
-                        return;
-                    }
-                    recognition.start();
-                },500);
             }
 
             recognition.onerror = function(event) {
@@ -98,6 +92,12 @@
             recognition.onend = function(event) {
                 //Fired when the speech recognition service has disconnected.
                 console.log('SpeechRecognition.onend');
+                setTimeout(()=>{
+                    if(recognition){
+                        return;
+                    }
+                    recognition.start();
+                },500);
             }
             
             recognition.onnomatch = function(event) {
