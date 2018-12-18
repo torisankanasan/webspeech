@@ -97,12 +97,12 @@
             recognition.onend = function(event) {
                 //Fired when the speech recognition service has disconnected.
                 console.log('SpeechRecognition.onend');
-                setTimeout(()=>{
-                    if(recognition){
-                        return;
-                    }
+                try{
                     recognition.start();
-                },500);
+                }catch(e){
+                /* already started の場合は無視 */
+                    console.log(e);
+                }
             }
             
             recognition.onnomatch = function(event) {
